@@ -2,9 +2,17 @@ import { useState } from 'react'
 import {AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import { useNavigate } from 'react-router-dom';
+
+// Firebase imports
+import { getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from '../firebase';
+import { toast } from 'react-toastify';
 
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -20,6 +28,32 @@ const SignUp = () => {
     }));
   };
 
+  const onSubmit = async(e) =>{
+    e.preventDefault();
+
+    try {
+      const auth = getAuth();
+      const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      })
+      const user = userCredentials.user;
+      const formDataCopy = {...formData};
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
+
+
+      await addDoc(collection(db, 'users'), {
+       ...formDataCopy,
+
+      });
+      navigate("/");
+      toast.success("account created successfully");
+
+    }catch (error) {
+      toast.error("Unable to create account. Please try again");
+    }
+  }
   const  {name, email, password} = formData;
   return (
     <section className=''>
@@ -31,7 +65,7 @@ const SignUp = () => {
           />
         </div>
         <div className='w-full md:w-[67%] lg:w-[40%] lg:ml-20'>
-          <form action="" >
+          <form onSubmit={onSubmit}>
           <input type="text" id='name' value={name} onChange={onChange} placeholder='Full Name' className='mb-2 w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out' />
 
             <input type="email" id='email' value={email} onChange={onChange} placeholder='Email Address' className='w-full px-4 py-2 text-xl text-gray-700 bg-white border-gray-300 rounded transition ease-in-out' />
@@ -51,7 +85,7 @@ const SignUp = () => {
               </p>
             </div>
             <div className='bg-blue-600 text-center py-2 rounded-2xl text-white text-sm font-medium hover:bg-blue-800 cursor-pointer transition duration-150 ease-in-out hover:shadow-lg'>
-              <input className='uppercase' type="button" value="Sign up" />
+              <input className='uppercase' type="submit" value="Sign up" />
             </div>
           </form>
           <div className='flex text-center my-4 before:border-t before:flex-1 before:border-gray-400 after:border-t after:flex-1 after:border-gray-400'>
