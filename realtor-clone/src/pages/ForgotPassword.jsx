@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import {AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 import { Link } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 
@@ -7,18 +6,11 @@ import OAuth from '../components/OAuth';
 const ForgotPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const [formData, setFormData] = useState({
-    email: "",
-  });
+  const [email, setEmail] = useState("");
 
   const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.id]: e.target.value,
-    }));
+     setEmail(e.target.value);
   };
-
-  const  {email} = formData;
 
   return (
     <section>
@@ -42,7 +34,7 @@ const ForgotPassword = () => {
               </p>
             </div>
             <div className='bg-blue-600 text-center py-2 rounded-2xl text-white text-sm font-medium hover:bg-blue-800 cursor-pointer transition duration-150 ease-in-out hover:shadow-lg'>
-              <input className='uppercase' type="button" value="Submit" />
+              <input className='uppercase' type="button" value="Send Reset Password" />
             </div>
           </form>
           <div className='flex text-center my-4 before:border-t before:flex-1 before:border-gray-400 after:border-t after:flex-1 after:border-gray-400'>
