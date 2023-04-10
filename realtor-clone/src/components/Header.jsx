@@ -1,6 +1,8 @@
 import { useLocation, useNavigate} from "react-router-dom"
-const Header = () => {
+import './components.css'
 
+
+const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   function pathMathRoute(route){
@@ -17,11 +19,11 @@ const Header = () => {
                 </div>
                 <div>
                     <ul className="flex space-x-10">
-                        <li className={`cursor-pointer py-3 tex-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${pathMathRoute('/') && "text-black border-b-red-500"}`}onClick={()=>navigate("/")}>Home</li>
-                        <li className={`cursor-pointer py-3 tex-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${pathMathRoute('/profile') && "text-black border-b-red-500"}`} onClick={()=>navigate("/profile")}>Profile</li>
-                        <li className={`cursor-pointer py-3 tex-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${pathMathRoute('/offers') && "text-black border-b-red-500"}`} onClick={()=>navigate("/offers")}>Offers</li>
-                        <li className={`cursor-pointer py-3 tex-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${pathMathRoute('/login') && "text-black border-b-red-500"}`} onClick={()=>navigate("/login")}>Login</li>
-                        <li className={`cursor-pointer py-3 tex-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent ${pathMathRoute('/register') && "text-black border-b-red-500"}`} onClick={()=>navigate("/register")}>Register</li>
+                        <li className={`nav__items ${pathMathRoute('/') && "nav__items--active"}`}onClick={()=>navigate("/")}>Home</li>
+                        <li className={`nav__items ${pathMathRoute('/profile') && "nav__items--active"}`} onClick={()=>navigate("/profile")}>Profile</li>
+                        <li className={`nav__items ${pathMathRoute('/offers') && "nav__items--active"}`} onClick={()=>navigate("/offers")}>Offers</li>
+                        <li className={`nav__items ${pathMathRoute('/login') && "nav__items--active"}`} onClick={()=>navigate("/login")}>Login</li>
+                        <li className={`nav__items ${pathMathRoute('/register') && "nav__items--active"}`} onClick={()=>navigate("/register")}>Register</li>
                     </ul>
                 </div>
     </header>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, createBrowserRouter,
   RouterProvider } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import ForgetPassword from './pages/ForgetPassword'
+import ForgotPassword from './pages/ForgotPassword'
 import Profile from './pages/Profile'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
@@ -27,7 +27,7 @@ function App() {
         <Route path="/login" element={<SignIn />} />
         <Route path="/register" element={<SignUp />} />
         <Route path="/offers" element={<Offers />} />
-        <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
       </Routes>
     </Router>
