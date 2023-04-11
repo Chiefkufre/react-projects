@@ -29,7 +29,7 @@ const OAuth = () => {
       const token = credential.accessToken;
 
       const docRef = doc(db, 'users', user.uid);
-      const userSnap = await getDoc(userRef);
+      const userSnap = await getDoc(docRef);
 
       if (!userSnap.exists()) {
         await setDoc(docRef,  {
