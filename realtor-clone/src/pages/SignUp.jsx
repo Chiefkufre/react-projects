@@ -87,12 +87,13 @@ const SignUp = () => {
             <div className='bg-blue-600 text-center py-2 rounded-2xl text-white text-sm font-medium hover:bg-blue-800 cursor-pointer transition duration-150 ease-in-out hover:shadow-lg'>
               <input className='uppercase' type="submit" value="Sign up" />
             </div>
-          </form>
-          <div className='flex text-center my-4 before:border-t before:flex-1 before:border-gray-400 after:border-t after:flex-1 after:border-gray-400'>
+            <div className='flex text-center my-4 before:border-t before:flex-1 before:border-gray-400 after:border-t after:flex-1 after:border-gray-400'>
           <p className='text-center font-semibold mx-4'>OR</p>
           </div>
 
           <OAuth />
+          </form>
+          
           </div>
       </div>
       </section>
