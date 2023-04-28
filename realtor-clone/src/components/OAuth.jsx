@@ -1,22 +1,23 @@
 import { FcGoogle} from "react-icons/fc"
 import { useNavigate } from "react-router";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup ,GoogleAuthProvider } from "firebase/auth";
 import { doc, getDoc, setDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from '../firebase';
 import { toast } from 'react-toastify';
-
-
+import {PromptUserForPassword} from './PromptUserForPassword'
 
 const OAuth = () => {
 
   const navigate = useNavigate();
 
+  
   const googleSignUp = async() =>{
 
+    const auth = getAuth();
+    
     try {
 
       // Sign in using a popup.
-      const auth = getAuth();
       const provider = new GoogleAuthProvider();
       provider.addScope('profile');
       provider.addScope('email');
@@ -27,6 +28,8 @@ const OAuth = () => {
       // This gives you a Google Access Token.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
+
+
 
       const docRef = doc(db, 'users', user.uid);
       const userSnap = await getDoc(docRef);
@@ -40,23 +43,18 @@ const OAuth = () => {
         navigate("/");
         toast.success("account created successfully");
        
-      }else{
-        toast.info("email also exists. Please login");
-        navigate("/login");
-        
       }
 
-      
-
-       
-    }catch(error){
+    } catch (error) {
 
       const errorCode = error.code;
+
       const errorMessage = error.message;
-      toast.error(errorCode, errorMessage);
-    // The email of the user's account used.
-      const email = error.customData.email;
-    // The AuthCredential type that was used.
+
+      // toast.error(errorCode, errorMessage);
+
+      // The AuthCredential type that was used.
+
       const credential = GoogleAuthProvider.credentialFromError(error);
 
     }
