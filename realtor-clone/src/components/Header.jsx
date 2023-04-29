@@ -32,7 +32,7 @@ const Header = () => {
     
 
   return (
-    <div className='bg-white border-b shadow-sm sticky top-0 z-50'>
+    <div className='bg-white border-b shadow-sm sticky top-0 z-40'>
       
     
     <header className='flex justify-between items-center px-3 max-w-6xl mx-auto'>
@@ -43,7 +43,7 @@ const Header = () => {
                     <ul className="flex space-x-10">
                         <li className={`nav__items ${pathMatchRoute('/') && "nav__items--active"}`} onClick={()=>navigate("/")}>Home</li>
                         <li className={`nav__items ${pathMatchRoute('/offers') && "nav__items--active"}`} onClick={()=>navigate("/offers")}>Offers</li>
-                        <li className={`nav__items ${ (pathMatchRoute('/login') || pathMatchRoute('/profile') ) && "nav__items--active"}`} onClick={()=>navigate("/profile")}>{pageState ? "Login" : "Profile"}</li>
+                        <li className={`nav__items ${ (pathMatchRoute('/login') || pathMatchRoute('/profile') ) && "nav__items--active"}`} onClick={()=>navigate("/profile")}>{pageState}</li>
                         <li className={`nav__items ${pathMatchRoute('/register') && "nav__items--active"}`} onClick={()=>navigate("/register")}>Register</li>
                     </ul>
                 </div>
