@@ -1,17 +1,35 @@
 import { useLocation, useNavigate} from "react-router-dom"
 import './components.css'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 
 const Header = () => {
+
+  const [pageState, setPageState] = useState("Login");
+
+  const auth = getAuth();
+
+  useEffect(() =>{
+   onAuthStateChanged(auth, (user) =>{
+    if(user){
+      setPageState("Profile")
+    }else{
+      setPageState("Login")
+    }
+   })
+  }, [auth])
 
   const location = useLocation();
   const navigate = useNavigate();
 
   // check path name
-  function pathMathRoute(route){
+  function pathMatchRoute(route){
     if(route === location.pathname) return true;
     return false;
   }
+
+    
 
   return (
     <div className='bg-white border-b shadow-sm sticky top-0 z-50'>
@@ -23,11 +41,10 @@ const Header = () => {
                 </div>
                 <div>
                     <ul className="flex space-x-10">
-                        <li className={`nav__items ${pathMathRoute('/') && "nav__items--active"}`} onClick={()=>navigate("/")}>Home</li>
-                        <li className={`nav__items ${pathMathRoute('/profile') && "nav__items--active"}`} onClick={()=>navigate("/profile")}>Profile</li>
-                        <li className={`nav__items ${pathMathRoute('/offers') && "nav__items--active"}`} onClick={()=>navigate("/offers")}>Offers</li>
-                        <li className={`nav__items ${pathMathRoute('/login') && "nav__items--active"}`} onClick={()=>navigate("/login")}>Login</li>
-                        <li className={`nav__items ${pathMathRoute('/register') && "nav__items--active"}`} onClick={()=>navigate("/register")}>Register</li>
+                        <li className={`nav__items ${pathMatchRoute('/') && "nav__items--active"}`} onClick={()=>navigate("/")}>Home</li>
+                        <li className={`nav__items ${pathMatchRoute('/offers') && "nav__items--active"}`} onClick={()=>navigate("/offers")}>Offers</li>
+                        <li className={`nav__items ${ (pathMatchRoute('/login') || pathMatchRoute('/profile') ) && "nav__items--active"}`} onClick={()=>navigate("/profile")}>{pageState ? "Login" : "Profile"}</li>
+                        <li className={`nav__items ${pathMatchRoute('/register') && "nav__items--active"}`} onClick={()=>navigate("/register")}>Register</li>
                     </ul>
                 </div>
     </header>
