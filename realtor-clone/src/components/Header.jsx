@@ -1,7 +1,7 @@
-import { useLocation, useNavigate} from "react-router-dom"
-import './components.css'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import './components.css';
 
 
 const Header = () => {
@@ -11,7 +11,8 @@ const Header = () => {
   const auth = getAuth();
 
   useEffect(() =>{
-   onAuthStateChanged(auth, (user) =>{
+
+    onAuthStateChanged(auth, (user) =>{
     if(user){
       setPageState("Profile")
     }else{

@@ -1,11 +1,11 @@
-
-import { Link, useNavigate } from "react-router-dom";
 import { getAuth, updateProfile } from "firebase/auth";
-import {useState } from "react";
+import { useState } from "react";
+import { AiOutlineHome } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
 
-import { doc, getDoc, setDoc, collection, serverTimestamp, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { collection, doc, getDoc, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { db } from "../firebase";
 
 const Profile = () => {
 
@@ -84,6 +84,12 @@ const Profile = () => {
             
           </div>
           </form>
+          <Link to="/create-listing">
+           <div className='flex items-center justify-center bg-blue-600 py-2 text-white text-center font-sm rounded-2xl shadow-md cursor-pointer hover:bg-blue-800  transition duration-150 ease-in-out hover:shadow-lg active:shadow-md'>
+              <AiOutlineHome className="bg-dark mr-2 text-2xl rounded-full p-1 border-2" />
+              <button type="submit" className='uppercase'> Add listing</button>
+          </div>
+          </Link>
         </div>
     </section>
     
