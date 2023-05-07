@@ -45,7 +45,6 @@ function App() {
            <Route path="/create-listing" element={<CreateListing />} />
         </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
-
       </Routes>
       < Footer />
     </Router>

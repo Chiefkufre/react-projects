@@ -10,6 +10,7 @@ const Header = () => {
 
   const auth = getAuth();
 
+  const currentUser = auth.currentUser;
   useEffect(() =>{
 
     onAuthStateChanged(auth, (user) =>{
@@ -24,13 +25,21 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+      auth.signOut();
+      navigate('/');
+  }
+
   // check path name
   function pathMatchRoute(route){
     if(route === location.pathname) return true;
     return false;
   }
 
-    
+
+
 
   return (
     <div className='bg-white border-b shadow-sm sticky top-0 z-40'>
@@ -45,8 +54,15 @@ const Header = () => {
                         <li className={`nav__items ${pathMatchRoute('/') && "nav__items--active"}`} onClick={()=>navigate("/")}>Home</li>
                         <li className={`nav__items ${pathMatchRoute('/offers') && "nav__items--active"}`} onClick={()=>navigate("/offers")}>Offers</li>
                         <li className={`nav__items ${ (pathMatchRoute('/login') || pathMatchRoute('/profile') ) && "nav__items--active"}`} onClick={()=>navigate("/profile")}>{pageState}</li>
+                        
+                        {currentUser ? (
+                          <button onClick={handleLogout} className="nav__items">
+                            Logout
+                          </button>
+                        ) : (
                         <li className={`nav__items ${pathMatchRoute('/register') && "nav__items--active"}`} onClick={()=>navigate("/register")}>Register</li>
-                    </ul>
+                        )}
+                      </ul>
                 </div>
     </header>
     </div>
