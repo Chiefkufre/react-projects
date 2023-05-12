@@ -41,8 +41,8 @@ const SignIn = () => {
         const user = userCredentials.user;
 
         if(user){
+        navigate('/profile');
         toast.success("login success");
-        navigate('/');
         }
       
     } catch (error) {

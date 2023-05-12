@@ -40,7 +40,7 @@ const OAuth = () => {
           email: user.email,
           timestamp: serverTimestamp()
          });
-        navigate("/");
+        navigate("/profile");
         toast.success("account created successfully");
        
       }
