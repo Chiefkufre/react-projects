@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import './components.css';
 
-
 const Header = () => {
+
+  const navigate = useNavigate()
+  const location = useLocation();
 
   const [pageState, setPageState] = useState("Login");
 
@@ -16,14 +18,13 @@ const Header = () => {
     onAuthStateChanged(auth, (user) =>{
     if(user){
       setPageState("Profile")
+      navigate('/profile')
     }else{
       setPageState("Login")
     }
    })
   }, [auth])
 
-  const location = useLocation();
-  const navigate = useNavigate();
 
 
   const handleLogout = (e) => {
