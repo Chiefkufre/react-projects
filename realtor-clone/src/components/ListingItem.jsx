@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import {MdLocationOn } from 'react-icons/md';
+import {FaTrash} from 'react-icons/fa';
+import {MdEdit} from 'react-icons/md'
 import moment from 'moment';
 
-const ListingItem = ({ listing, id }) => {
+const ListingItem = ({ listing, id, onDelete, onEdit }) => {
 
   let discountedPrice = listing.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   let regularPrice = listing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -21,7 +23,7 @@ const ListingItem = ({ listing, id }) => {
                       font-semibold py-1 px-2 rounded-md shadow-lg'>{relativeTime}</p>
         <div className='w-full p-[10px]'>
           <div className='flex items-center space-x-1'>
-            <MdLocationOn className='h-4 w-4 text-green-600'/>
+            <MdLocationOn className='h-5 w-5 text-green-600'/>
             <p className='font-semibold text-sm mb-[2px] text-green-600 truncate'>{listing.address}</p>
           </div>
           <p className='font-semibold text-xl m-0 truncate'>{listing.name}</p>
@@ -43,6 +45,21 @@ const ListingItem = ({ listing, id }) => {
           </div>
         </div>
       </Link>
+      {onDelete && (
+
+        <FaTrash  className='absolute bottom-2 right-2 h-[14px] 
+                cursor-pointer text-red-500' 
+                onClick={()=> onDelete(listing.id)}
+                />
+      )}
+
+      {onEdit && (
+
+      <MdEdit  className='absolute bottom-2 right-10 h-4 
+              cursor-pointer text-blue-500' 
+              onClick={()=> onEdit(listing.id)}
+              />
+      )}
     </li>
   );
 };
