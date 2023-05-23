@@ -6,8 +6,8 @@ import moment from 'moment';
 
 const ListingItem = ({ listing, id, onDelete, onEdit }) => {
 
-  let discountedPrice = listing.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  let regularPrice = listing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let discountedPrice = listing.discountedPrice;
+  let regularPrice = listing.regularPrice;
 
   let timestamp = listing.timestamp.toDate();
   const relativeTime = moment(timestamp).fromNow();
@@ -28,7 +28,9 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
           </div>
           <p className='font-semibold text-xl m-0 truncate'>{listing.name}</p>
 
-          <p className='text-[#457b9d] mt-2 font-semibold'>${listing.offer ? discountedPrice : regularPrice}
+          <p className='text-[#457b9d] mt-2 font-semibold'>${
+                  listing.offer ? discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : 
+                  regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           {listing.type === "rent" && "/month"}
           </p>
           <div className='flex items-center mt-[2px] space-x-3'>
@@ -44,7 +46,7 @@ const ListingItem = ({ listing, id, onDelete, onEdit }) => {
             </div>
           </div>
         </div>
-      </Link>
+      </Link> 
       {onDelete && (
 
         <FaTrash  className='absolute bottom-2 right-2 h-[14px] 

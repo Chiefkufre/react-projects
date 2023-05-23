@@ -12,10 +12,13 @@ import ListingItem from "../components/ListingItem";
 const Profile = () => {
 
   const navigate = useNavigate()
+  const auth = getAuth();
+
+
   const [changeDetail, setChangeDetail] = useState(false);
   const [listings, setListings] = useState(null);
   const [loading, setLoading] = useState(true);
-  const auth = getAuth();
+
 
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
@@ -40,8 +43,6 @@ const Profile = () => {
   }
 
   const onSubmit = async(e) =>{
-  
-
     try {
       
       if (auth.currentUser.displayName !== name){
@@ -61,6 +62,8 @@ const Profile = () => {
     }
     
   }
+
+
 
   useEffect(()=>{
       const fetchUserListings = async()=>{
@@ -88,7 +91,7 @@ const Profile = () => {
         const updatedListings = listings.filter(
           (listing) => listing !== listingId);
 
-         setListings(updatedListings);
+        setListings(updatedListings);
         toast.success('listing deleted successfully');
       }
   }
@@ -129,30 +132,30 @@ const Profile = () => {
           </Link>
         </div>
     </section>
-                <div className="max-w-6xl px-3 mt-6 mx-auto">
-                  {!loading  && listings.length > 0 && (
-                    <>
-                    <h2 className="text-2xl text-center font-semibold mb-6">My Listing</h2>
-                    
-                    <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mt-6 mb-6">
-                      {listings.map((listing) => (
+    <div className="max-w-6xl px-3 mt-6 mx-auto">
+      {!loading  && listings.length > 0 && (
+        <>
+        <h2 className="text-2xl text-center font-semibold mb-6">My Listing</h2>
+        
+        <ul className="sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mt-6 mb-6">
+          {listings.map((listing) => (
 
-                          <ListingItem 
+              <ListingItem 
 
-                            key={listing.id} 
-                            id={listing.id} 
-                            listing={listing.data} 
-                            onDelete={() => onDelete(listing.id)}
-                            onEdit={() => onEdit(listing.id)}
-                          />
-                      ))}
-                    </ul>
-                    </>
+                key={listing.id} 
+                id={listing.id} 
+                listing={listing.data} 
+                onDelete={() => onDelete(listing.id)}
+                onEdit={() => onEdit(listing.id)}
+              />
+          ))}
+        </ul>
+        </>
 
-                    
+        
 
-                  )}
-                </div>
+      )}
+    </div>
     </>
     
   )
